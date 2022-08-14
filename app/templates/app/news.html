@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{title|truncatechars:10}}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+</head>
+
+<body>
+
+
+  <nav class="navbar bg-dark">
+    <form class="container-fluid justify-content-start">
+
+
+      <button type="button" class="btn btn-outline-primary mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+        Login
+      </button>
+
+
+      <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal"
+        data-bs-target="#signinModal">Signin</button>
+    </form>
+  </nav>
+
+
+  <div class="container my-2 card row mx-4">
+    <h4> Tell your here here </h4>
+
+
+        <textarea name="" id="chat-log" cols="103" rows="10">
+        {% for chat in chats %}
+          {{chat.content}}
+        {% endfor%}
+      </textarea><br />
+
+
+        <input type="text" id="chat-message-input" size="100" /><br />
+        <input type="button" class="btn btn-primary" value="Send" id="chat-message-submit" />
+
+
+        {{i|json_script:"group-name"}}
+        <h1>{{title}}</h1>
+        {% for content in contents %}
+        <p>{{content}}</p>
+        {% endfor %}
+
+        {% if source != 'None' %}
+        <div class="col-auto d-none d-lg-block">
+          <img title="US Says India Hid Russian Origin Of Shipped Fuel: Reserve Bank Official"
+            alt="US Says India Hid Russian Origin Of Shipped Fuel: Reserve Bank Official" id="story_image_main"
+            src="{{source}}" pinger-seen="true" />
+          {% endif %}
+        </div>
+
+
+
+
+
+
+
+
+        <!-- login Modal -->
+
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+                <div class="global-container">
+                  <form method='POST'>
+                    {% csrf_token %}
+                    <div class="card login-form">
+                      <div class="card-body">
+                        <h3 class="card-title text-center">Login To Enter</h3>
+                        <div class="card-text">
+                          <!--
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->
+                          <form>
+                            <!-- to error: add class "has-danger" -->
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Username</label>
+                              <input type="text" class="form-control form-control-sm" name='username' id="username"
+                                aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Password</label>
+                              <a href="/forget_password/" style="float:right;font-size:12px;">Forgot password?</a>
+                              <input type="password" class="form-control form-control-sm" name='password'
+                                id="exampleInputPassword1">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+
+                            <div class="sign-up">
+                              Don't have an account? <a href="#">Create One</a>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+        <!-- signin Modal -->
+        <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="global-container">
+                  <div class="card login-form">
+                    <div class="card-body">
+                      <h3 class="card-title text-center">Register</h3>
+                      <div class="card-text">
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-info">
+                          {{message}}
+                        </div>
+                        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                          </li>
+                          {% endfor %}
+                          {% endif %}
+                          <!--
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->
+                          <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Username</label>
+                              <input type="text" class="form-control form-control-sm" id="username" name="username"
+                                aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email address</label>
+                              <input type="email" class="form-control form-control-sm" id="email" name="email"
+                                aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Password</label>
+                              <input type="password" class="form-control form-control-sm" name="password" id="password"></div>
+                              <a href="/forget_password/" style="float:right;font-size:12px;">Forgot password?</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                            <div class="sign-up">
+                              Alraeady have an account?<a href="#">Login</a>
+                            </div>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          const groupName = JSON.parse(
+            document.getElementById("group-name").textContent
+          );
+          console.log(typeof groupName);
+          var ws = new WebSocket(
+            "ws://" + window.location.host + "/ws/sc/" + groupName + "/"
+          );
+          ws.onopen = function () {
+            console.log("websocket Connection open...");
+          };
+
+          ws.onmessage = function (event) {
+            console.log("Message Received from server", event.data);
+            const data = JSON.parse(event.data);
+            console.log("Message Received from server", data.user);
+            document.querySelector("#chat-log").value +=
+              data.user + ":" + data.msg + "\n";
+          };
+
+          ws.onclose = function (event) {
+            console.error("Chat socket closed unexpectedly");
+          };
+
+          document.getElementById("chat-message-submit").onclick = function (
+            event
+          ) {
+            const messageInputDom = document.getElementById("chat-message-input");
+            const message = messageInputDom.value;
+            console.log("message");
+            ws.send(
+              JSON.stringify({
+                msg: message,
+              })
+            );
+            messageInputDom.value = "";
+          };
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+          crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+          integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+          crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+          integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+          crossorigin="anonymous"></script>
+</body>
+
+</html>
